@@ -260,6 +260,11 @@ class Ewald(nn.Module):
                                     compute_field: bool=False,
                                     e_ext: Optional[torch.Tensor]=None):
         device = r_raw.device
+        cell_now = cell_now.to(device=device, dtype=r_raw.dtype)
+        if u is not None:
+            u = u.to(device=device, dtype=r_raw.dtype)
+        if quad is not None:
+            quad = quad.to(device=device, dtype=r_raw.dtype)
         if q.dim() == 1:
             one_dim_input = True
             q = q.unsqueeze(1)
